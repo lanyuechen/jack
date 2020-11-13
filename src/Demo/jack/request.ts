@@ -4,7 +4,7 @@
  */
 import { extend } from 'umi-request';
 
-const codeMessage = {
+const codeMessage: any = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
   202: '一个请求已经进入后台排队（异步任务）。',

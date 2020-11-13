@@ -1,9 +1,11 @@
 import request from './request';
+import { toCamelCase } from './utils';
 
 import { SwaggerConfig, ParameterType } from './data';
 
 export default class Jack {
   info: any;
+  [key: string]: any;
 
   constructor(config: SwaggerConfig) {
     this.info = config.info;
@@ -26,7 +28,7 @@ export default class Jack {
     if (!cfg.operationId) {
       return;
     }
-    Object.defineProperty(this, cfg.operationId, {
+    Object.defineProperty(this, toCamelCase(cfg.operationId), {
       value: async (args: any) => {
         if (cfg.parameters) {
           // 参数验证
@@ -55,65 +57,3 @@ export default class Jack {
     });
   }
 }
-
-/**
-{
-  "openapi": "3.0.0",
-  "info": {
-    "title": "xxxx",
-    "contact": {
-      "name": "contact",
-      "url": "https://xxx"
-    },
-    "version": "1.0.0"
-  },
-  "paths": {
-    "/test": {
-      "get": {
-        "tags": [
-          "test"
-        ],
-        "parameters": [
-          {
-            "name": "rsid",
-            "in": "path",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/rs"
-                }
-              }
-            },
-            "description": "test"
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "rs": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "姓名",
-            "type": "string"
-          },
-          "age": {
-            "description": "年龄",
-            "type": "number"
-          }
-        },
-        "required": [
-          "name"
-        ]
-      }
-    }
-  }
-}
- */

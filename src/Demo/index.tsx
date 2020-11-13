@@ -12,7 +12,9 @@ export default () => {
   const test = async () => {
     const jack = new Jack(swagger);
 
-    const res = await jack.get_version();
+    console.log('[jack]', jack);
+
+    const res = await jack.getVersion();
 
     console.log('[res]', res);
   }
